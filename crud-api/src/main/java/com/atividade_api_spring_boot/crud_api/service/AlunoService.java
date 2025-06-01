@@ -21,7 +21,7 @@ public class AlunoService {
          return alunoRepository.save(aluno);
     }
 
-    public Aluno burcarAlunoPorId(Long id){
+    public Aluno buscarAlunoPorId(Long id){
         return alunoRepository.findById(id).orElse(null);
     }
     public List<Aluno> listarAlunos(){
@@ -31,10 +31,13 @@ public class AlunoService {
         alunoRepository.deleteById(id);
     }
     public Aluno altualizarAluno(Long id,Aluno alunoAtualizado){
-        Aluno alunoExixtente = burcarAlunoPorId(id);
-       alunoExixtente.setNome(alunoAtualizado.getNome());
-       alunoExixtente.setEmail(alunoAtualizado.getEmail());
-       return alunoRepository.save(alunoExixtente);
+      Aluno alunoExistente = buscarAlunoPorId(id);
+    if (alunoExistente != null) {
+        alunoExistente.setNome(alunoAtualizado.getNome());
+        alunoExistente.setEmail(alunoAtualizado.getEmail());
+        return alunoRepository.save(alunoExistente);
+    }
+    return null;
     }
 
 
